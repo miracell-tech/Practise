@@ -30,3 +30,33 @@ Dieses Übungsprojekt mit frei zugänglichen Daten analysiert Marketing- und Kun
 - Kundensegmentierung
 - Interaktive Dashboards
 - Erweiterte statistische Analysen
+
+## Ergebnisse
+
+Nach der Datenbereinigung ergaben sich folgende Ergebnisse:
+
+- Ursprüngliche Datengröße: 2240 Zeilen und 29 Spalten
+- Bereinigte Datengröße: 2217 Zeilen und 32 Spalten
+
+###  KPIs:
+- Durchschnittsalter der Kunden: ca. 57 Jahre
+- Durchschnittliches Einkommen: ca. 51.000
+- Durchschnittliche Gesamtausgaben: ca. 599
+
+###  Datenbereinigung
+- Fehlende Werte wurden entfernt oder ersetzt
+- Duplikate wurden entfernt
+- Unrealistische Alters- und Einkommenswerte wurden gefiltert
+
+### Neue berechnete Features
+- Alter der Kunden
+- Gesamtausgaben pro Kunde
+- Gesamtanzahl der Käufe
+
+### Erkenntnisse
+- Kunden mit höherem Einkommen geben tendenziell mehr aus
+- Die meisten Kunden befinden sich im mittleren Altersbereich
+- Einige starke Ausreißer in Einkommen und Alter wurden identifiziert
+Beispiel-Insight
+
+Einige Kunden mit sehr hohem Einkommen zeigen geringe Gesamtausgaben. Das zeigt, dass Einkommen nicht automatisch mit Kaufverhalten korreliert.
