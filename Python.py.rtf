@@ -1,0 +1,126 @@
+import pandas as pd
+
+  # DATEI LADEN
+
+
+FILE = "marketing_campaign.xlsx"
+
+df = pd.read_excel(FILE)
+
+print("Original Shape:", df.shape)
+
+  # SPALTENNAMEN BEREINIGEN
+
+df.columns = df.columns.str.strip().str.lower()
+
+rename_columns = {
+    "mntwines": "wine_spend",
+    "mntfruits": "fruit_spend",
+    "mntmeatproducts": "meat_spend",
+    "mntfishproducts": "fish_spend",
+    "mntsweetproducts": "sweet_spend",
+    "mntgoldprods": "gold_spend",
+    "numwebpurchases": "web_purchases",
+    "numcatalogpurchases": "catalog_purchases",
+    "numstorepurchases": "store_purchases",
+    "dt_customer": "customer_date",
+    "year_birth": "birth_year"
+}
+
+df = df.rename(columns=rename_columns)
+
+
+  # DATENTYPEN KONVERTIEREN
+
+
+df["customer_date"] = pd.to_datetime(
+    df["customer_date"],
+    errors="coerce"
+)
+
+numeric_columns = [
+    "income",
+    "birth_year",
+    "wine_spend",
+    "fruit_spend",
+    "meat_spend",
+    "fish_spend",
+    "sweet_spend",
+    "gold_spend",
+    "web_purchases",
+    "catalog_purchases",
+    "store_purchases"
+]
+
+for col in numeric_columns:
+    if col in df.columns:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+
+  # FEHLENDE WERTE + DUPLIKATE 
+
+
+df["income"] = df["income"].fillna(
+    df["income"].median()
+)
+
+df = df.drop_duplicates()
+df = df.dropna()
+
+
+  # FEATURE ENGINEERING
+
+
+df["age"] = 2026 - df["birth_year"]
+
+spend_columns = [
+    "wine_spend",
+    "fruit_spend",
+    "meat_spend",
+    "fish_spend",
+    "sweet_spend",
+    "gold_spend"
+]
+
+purchase_columns = [
+    "web_purchases",
+    "catalog_purchases",
+    "store_purchases"
+]
+
+df["total_spend"] = df[spend_columns].sum(axis=1)
+df["total_purchases"] = df[purchase_columns].sum(axis=1)
+
+  
+  # OUTLIER FILTER
+
+
+df = df[df["income"] < df["income"].quantile(0.99)]
+
+# unrealistische Alterswerte entfernen
+df = df[(df["age"] >= 18) & (df["age"] <= 90)]
+
+
+  # OUTPUT / QUICK CHECK
+
+
+print("\nFINAL SHAPE:", df.shape)
+
+print("\nHEAD:")
+print(df.head())
+
+print("\nSTATISTICS:")
+print(
+    df[["age", "income", "total_spend"]]
+    .describe()
+)
+
+
+  # BEREINIGTE DATEN EXPORTIEREN
+
+
+df.to_excel(
+    "cleaned_marketing_data.xlsx",
+    index=False
+)
+
+print("\nCleaned dataset exported successfully.")
