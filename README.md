@@ -7,8 +7,7 @@ Dieses Übungsprojekt mit frei zugänglichen Daten analysiert Marketing- und Kun
 ##  Tools
 - Python
 - pandas
-- matplotlib
-- openpyxl
+
 
 ## Funktionen
 - Import von Excel-Daten
@@ -28,8 +27,8 @@ Dieses Übungsprojekt mit frei zugänglichen Daten analysiert Marketing- und Kun
 ## Nächste Schritte
 - Datenvisualisierung mit matplotlib
 - Kundensegmentierung
-- Interaktive Dashboards
-- Erweiterte statistische Analysen
+- Dashboards
+- Statistische Analysen
 
 ## Ergebnisse
 
